@@ -368,7 +368,7 @@ app.get('/.well-known/agent.json', (req, res) => res.json({
   name: 'hive-mcp-agent-kyc',
   description: SCOPE_DISCLAIMER,
   version: VERSION,
-  url: 'https://hive-mcp-gateway.onrender.com/agent-kyc/mcp',
+  url: 'https://hive-mcp-agent-kyc.onrender.com/mcp',
   did: 'did:hive:agent-kyc',
   capabilities: TOOLS.map(t => ({ name: t.name, description: t.description })),
   pricing: [
@@ -388,7 +388,7 @@ app.get('/seo.json', (req, res) => res.json({
   applicationCategory: 'DeveloperApplication',
   applicationSubCategory: 'AI Agent / MCP Server / Compliance Broker',
   operatingSystem: 'Any (HTTP)',
-  url: 'https://hive-mcp-gateway.onrender.com/agent-kyc',
+  url: 'https://hive-mcp-agent-kyc.onrender.com',
   softwareVersion: VERSION,
   publisher: { '@type': 'Organization', name: 'Hive Civilization', url: 'https://hive-mcp-gateway.onrender.com' },
   author: { '@type': 'Person', name: 'Steve Rotzin', email: 'steve@thehiveryiq.com', url: 'https://www.thehiveryiq.com' },
@@ -407,7 +407,7 @@ app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send([
     'User-agent: *',
     'Allow: /',
-    'Sitemap: https://hive-mcp-gateway.onrender.com/agent-kyc/sitemap.xml',
+    'Sitemap: https://hive-mcp-agent-kyc.onrender.com/sitemap.xml',
     '',
     '# Hive Civilization · public discovery surface · indexing welcome',
   ].join('\n'));
@@ -435,6 +435,11 @@ app.get('/', (req, res) => {
 <meta name="description" content="${SCOPE_DISCLAIMER.replace(/"/g, '&quot;')}"/>
 <meta name="theme-color" content="${BRAND_GOLD}"/>
 <meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://hive-mcp-agent-kyc.onrender.com/"/>
+<meta property="og:url" content="https://hive-mcp-agent-kyc.onrender.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Hive Agent KYC MCP"/>
+<meta property="og:description" content="${SCOPE_DISCLAIMER.replace(/&quot;/g, '&quot;')}"/>
 <style>
   body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:#0d0a06;color:#fbf6ec;line-height:1.55;padding:48px 32px;max-width:920px;margin:0 auto;}
   h1{color:${BRAND_GOLD};font-size:42px;margin:0 0 12px;letter-spacing:-1px;}
@@ -448,7 +453,7 @@ app.get('/', (req, res) => {
 <p>Broker/observer layer for KYC/AML screening. Routes to third-party providers (Chainalysis, TRM Labs, Elliptic) and surfaces public sanctions list matches (OFAC SDN, FATF).</p>
 <div class="disclaimer"><strong>Scope:</strong> ${SCOPE_DISCLAIMER}</div>
 <h2>Endpoint</h2>
-<p><code>POST https://hive-mcp-gateway.onrender.com/agent-kyc/mcp</code></p>
+<p><code>POST https://hive-mcp-agent-kyc.onrender.com/mcp</code></p>
 <h2>Tools (4)</h2>
 <ul>
   ${TOOLS.map(t => `<li><code>${t.name}</code> — ${t.description}</li>`).join('\n  ')}
