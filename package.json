@@ -1,0 +1,56 @@
+{
+  "name": "hive-mcp-agent-kyc",
+  "version": "1.0.0",
+  "description": "Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent.",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "hive-mcp-agent-kyc": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "x402",
+    "a2a",
+    "agentic",
+    "ai-agent",
+    "hive",
+    "hive-civilization",
+    "agent-kyc",
+    "kyc",
+    "sanctions-screening",
+    "ofac",
+    "fatf",
+    "aml",
+    "anti-money-laundering",
+    "compliance",
+    "risk-scoring",
+    "chain-analysis",
+    "chainalysis-compatible",
+    "trm-compatible",
+    "elliptic-compatible",
+    "broker-layer",
+    "usdc",
+    "base",
+    "base-l2",
+    "real-rails",
+    "did-attestation"
+  ],
+  "author": "Steve Rotzin <steve@thehiveryiq.com> (https://www.thehiveryiq.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/srotzin/hive-mcp-agent-kyc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srotzin/hive-mcp-agent-kyc"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

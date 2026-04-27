@@ -1,0 +1,100 @@
+# Smithery Registry — Hive Agent KYC MCP Server
+# https://smithery.ai
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  url: https://hive-mcp-gateway.onrender.com/agent-kyc/mcp
+
+name: hive-mcp-agent-kyc
+displayName: Hive Agent KYC — broker/observer layer for KYC/AML screening
+version: "1.0.0"
+description: >
+  Broker/observer layer that routes blockchain address screening requests to
+  third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces
+  public sanctions list matches (OFAC SDN, FATF high-risk jurisdictions).
+  Charges $0.10 USDC on Base per provider screening. Not a regulated
+  money-services business. Does not hold custody of KYC documents, does not
+  make final allow/deny determinations, and does not issue compliance
+  attestations on behalf of regulated entities. Final compliance
+  determinations remain with the requesting agent and its operator.
+
+author:
+  name: Steve Rotzin
+  email: steve@thehiveryiq.com
+  url: https://www.thehiveryiq.com
+
+license: MIT
+homepage: https://github.com/srotzin/hive-mcp-agent-kyc
+repository:
+  type: git
+  url: https://github.com/srotzin/hive-mcp-agent-kyc
+
+transport: streamable-http
+endpoint: https://hive-mcp-gateway.onrender.com/agent-kyc/mcp
+protocol: "2024-11-05"
+
+categories:
+  - compliance
+  - finance
+  - agent-to-agent
+  - security
+  - web3
+
+tags:
+  - mcp
+  - hive
+  - agent-kyc
+  - kyc
+  - aml
+  - ofac
+  - fatf
+  - sanctions-screening
+  - chainalysis-compatible
+  - trm-compatible
+  - elliptic-compatible
+  - broker-layer
+  - usdc
+  - base-l2
+  - x402
+  - a2a
+
+tools:
+  - name: agent_kyc_screen_address
+    description: >
+      Route a blockchain address screening request to a third-party KYC/AML
+      provider (Chainalysis, TRM Labs, or Elliptic). Returns the provider's
+      risk score and flags verbatim. Cost is $0.10 USDC on Base. Until
+      partnership keys are configured, returns 503 with backend_pending.
+  - name: agent_kyc_check_ofac_list
+    description: >
+      Check whether a target identifier (address, name, or entity) appears
+      on the OFAC SDN public sanctions list. Free. Sourced from treasury.gov,
+      cached for 24 hours.
+  - name: agent_kyc_check_fatf_list
+    description: >
+      Check whether a country code is on the FATF Call-for-Action or
+      Increased-Monitoring lists. Free. Snapshot updated when FATF publishes.
+  - name: agent_kyc_query_status
+    description: >
+      Return the audit-log entry for a previously-issued screening query.
+      Free. Returns query_id, requester DID, timestamp, provider used, and
+      result code. No PII is stored.
+
+runtime:
+  type: node
+  version: ">=18"
+  command: node server.js
+  env:
+    - name: PORT
+      default: "3000"
+      required: false
+    - name: CHAINALYSIS_API_KEY
+      required: false
+    - name: TRM_API_KEY
+      required: false
+    - name: ELLIPTIC_API_KEY
+      required: false
