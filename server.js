@@ -471,6 +471,81 @@ app.get('/', (req, res) => {
 </body></html>`);
 });
 
+
+// ─── Schema discoverability ────────────────────────────────────────────────
+const AGENT_CARD = {
+  name: SERVICE,
+  description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
+  url: `https://${SERVICE}.onrender.com`,
+  provider: {
+    organization: 'Hive Civilization',
+    url: 'https://www.thehiveryiq.com',
+    contact: 'steve@thehiveryiq.com',
+  },
+  version: VERSION,
+  capabilities: {
+    streaming: false,
+    pushNotifications: false,
+    stateTransitionHistory: false,
+  },
+  authentication: {
+    schemes: ['x402'],
+    credentials: {
+      type: 'x402',
+      asset: 'USDC',
+      network: 'base',
+      asset_address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+      recipient: '0x15184bf50b3d3f52b60434f8942b7d52f2eb436e',
+    },
+  },
+  defaultInputModes: ['application/json'],
+  defaultOutputModes: ['application/json'],
+  skills: [
+    { name: 'agent_kyc_screen_address', description: 'Target blockchain address to screen' },
+    { name: 'agent_kyc_check_ofac_list', description: 'Check whether a target identifier (address, name, or ID) appears on the OFAC SDN public sanctions list. Free. Sources the list directly from treasury.gov and caches for 24h. Returns the match record verbatim from the public list. Broker/observer layer only.' },
+    { name: 'agent_kyc_check_fatf_list', description: 'Check whether a country code is on the FATF Call-for-Action or Increased-Monitoring lists. Free. Returns list category and FATF source URL. Snapshot is updated when FATF publishes (triannual). Broker/observer layer only.' },
+    { name: 'agent_kyc_query_status', description: 'Return the audit-log entry for a previously-issued screening query. Free. Returns query_id, requester DID, timestamp, provider used, result code, and a hash of the screened address. No PII is stored.' },
+  ],
+  extensions: {
+    hive_pricing: {
+      currency: 'USDC',
+      network: 'base',
+      model: 'per_call',
+      first_call_free: true,
+      loyalty_threshold: 6,
+      loyalty_message: 'Every 6th paid call is free',
+    },
+  },
+};
+
+const AP2 = {
+  ap2_version: '1',
+  agent: {
+    name: SERVICE,
+    did: `did:web:${SERVICE}.onrender.com`,
+    description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
+  },
+  endpoints: {
+    mcp: `https://${SERVICE}.onrender.com/mcp`,
+    agent_card: `https://${SERVICE}.onrender.com/.well-known/agent-card.json`,
+  },
+  payments: {
+    schemes: ['x402'],
+    primary: {
+      scheme: 'x402',
+      network: 'base',
+      asset: 'USDC',
+      asset_address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+      recipient: '0x15184bf50b3d3f52b60434f8942b7d52f2eb436e',
+    },
+  },
+  brand: { color: '#C08D23', name: 'Hive Civilization' },
+};
+
+app.get('/.well-known/agent-card.json', (req, res) => res.json(AGENT_CARD));
+app.get('/.well-known/ap2.json',         (req, res) => res.json(AP2));
+
+
 app.listen(PORT, () => {
   console.log(`Hive Agent KYC MCP Server running on :${PORT}`);
   console.log(`  Scope     : broker / observer layer`);
