@@ -472,6 +472,10 @@ app.get('/', (req, res) => {
 });
 
 
+// ─── Schema constants (auto-injected to fix deploy) ─────
+const SERVICE = 'hive-mcp-agent-kyc';
+
+
 // ─── Schema discoverability ────────────────────────────────────────────────
 const AGENT_CARD = {
   name: SERVICE,
