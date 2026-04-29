@@ -471,6 +471,151 @@ app.get('/', (req, res) => {
 </body></html>`);
 });
 
+
+// ─── Schema discoverability routes ────────────────────────────────────────
+app.get('/.well-known/agent-card.json', (req, res) => {
+  res.json({
+  "name": "hive-mcp-agent-kyc",
+  "description": "Hive Agent KYC MCP server \u2014 broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent.",
+  "url": "https://hive-mcp-agent-kyc.onrender.com",
+  "provider": {
+    "organization": "Hive Civilization",
+    "url": "https://www.thehiveryiq.com",
+    "contact": "steve@thehiveryiq.com"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "authentication": {
+    "schemes": [
+      "x402"
+    ],
+    "credentials": {
+      "type": "x402",
+      "asset": "USDC",
+      "network": "base",
+      "asset_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "recipient": "0x15184bf50b3d3f52b60434f8942b7d52f2eb436e"
+    }
+  },
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": []
+});
+});
+
+app.get('/.well-known/ap2.json', (req, res) => {
+  res.json({
+  "ap2_version": "1",
+  "agent": {
+    "name": "hive-mcp-agent-kyc",
+    "did": "did:web:hive-mcp-agent-kyc.onrender.com",
+    "description": "Hive Agent KYC MCP server \u2014 broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent."
+  },
+  "endpoints": {
+    "mcp": "https://hive-mcp-agent-kyc.onrender.com/mcp",
+    "agent_card": "https://hive-mcp-agent-kyc.onrender.com/.well-known/agent-card.json"
+  },
+  "payments": {
+    "schemes": [
+      "x402"
+    ],
+    "primary": {
+      "scheme": "x402",
+      "network": "base",
+      "asset": "USDC",
+      "asset_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "recipient": "0x15184bf50b3d3f52b60434f8942b7d52f2eb436e"
+    }
+  },
+  "brand": {
+    "color": "#C08D23",
+    "name": "Hive Civilization"
+  }
+});
+});
+
+app.get('/openapi.json', (req, res) => {
+  res.json({
+  "openapi": "3.0.3",
+  "info": {
+    "title": "hive-mcp-agent-kyc",
+    "version": "1.0.0",
+    "description": "Hive Agent KYC MCP server \u2014 broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent.",
+    "contact": {
+      "email": "steve@thehiveryiq.com"
+    },
+    "x-brand-color": "#C08D23",
+    "x-organization": "Hive Civilization"
+  },
+  "servers": [
+    {
+      "url": "https://hive-mcp-agent-kyc.onrender.com"
+    }
+  ],
+  "paths": {
+    "/mcp": {
+      "post": {
+        "summary": "POST /mcp",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "GET /health",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/seo.json": {
+      "get": {
+        "summary": "GET /seo.json",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/robots.txt": {
+      "get": {
+        "summary": "GET /robots.txt",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "GET /",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+});
+});
+
+
 app.listen(PORT, () => {
   console.log(`Hive Agent KYC MCP Server running on :${PORT}`);
   console.log(`  Scope     : broker / observer layer`);
