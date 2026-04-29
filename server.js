@@ -475,7 +475,7 @@ app.get('/', (req, res) => {
 // ─── Schema discoverability ────────────────────────────────────────────────
 const AGENT_CARD = {
   name: SERVICE,
-  description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent.. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
+  description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
   url: `https://${SERVICE}.onrender.com`,
   provider: {
     organization: 'Hive Civilization',
@@ -523,7 +523,7 @@ const AP2 = {
   agent: {
     name: SERVICE,
     did: `did:web:${SERVICE}.onrender.com`,
-    description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent.. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
+    description: 'Hive Agent KYC MCP server — broker/observer layer that routes screening requests to third-party KYC/AML providers (Chainalysis, TRM Labs, Elliptic) and surfaces public OFAC SDN and FATF sanctions list matches. Not a regulated MSB. Final compliance determinations remain with the requesting agent. New agents: first call free. Loyalty: every 6th paid call is free. Pay in USDC on Base L2.',
   },
   endpoints: {
     mcp: `https://${SERVICE}.onrender.com/mcp`,
